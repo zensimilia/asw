@@ -4,19 +4,21 @@ from pytest_httpserver import HTTPServer
 from asw import AISUP, exceptions
 
 
-@pytest.fixture
-def httpserver(httpserver: HTTPServer):
-    httpserver.expect_request("/404", method="GET").respond_with_data("not found", status=404)
-    httpserver.expect_request("/500", method="GET").respond_with_data("server error", status=500)
-    httpserver.expect_request("/401", method="POST").respond_with_data("un authorized", status=401)
-    httpserver.expect_request("/no-json", method="POST").respond_with_data("corrupted", status=200)
-    yield httpserver
-    httpserver.check_assertions()
+@pytest.fixture(scope="session")
+def http_server():
+    server = HTTPServer()
+    server.start()
+    server.expect_request("/404", method="GET").respond_with_data("not found", status=404)
+    server.expect_request("/500", method="GET").respond_with_data("server error", status=500)
+    server.expect_request("/401", method="POST").respond_with_data("un authorized", status=401)
+    server.expect_request("/no-json", method="POST").respond_with_data("corrupted", status=200)
+    yield server
+    server.stop()
 
 
-@pytest.fixture
-def aisup(httpserver: HTTPServer) -> AISUP:
-    return AISUP(httpserver.url_for("/"), "t0ken")
+@pytest.fixture(scope="session")
+def aisup(http_server):
+    return AISUP(http_server.url_for("/"), "t0ken")
 
 
 def test_get_404(aisup: AISUP):
