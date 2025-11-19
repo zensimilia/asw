@@ -145,7 +145,7 @@ class AISUP:
                     hasher.update(chunk)
                 file_hash = base64.b64encode(hasher.digest()).decode()
         except requests.exceptions.RequestException as err:
-            msg = f"Network error: {err.strerror}"
+            msg = f"Network error: {err}"
             raise exceptions.NetworkError(msg) from err
         except OSError as err:
             msg = f"{err.strerror}: {err.filename}"
