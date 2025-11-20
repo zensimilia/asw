@@ -8,6 +8,20 @@ A tool class for work with its API.
 
 ## Basic usage
 
+Install package by you favourite package manager.
+
+- UV
+
+    ```bash
+    uv add git+https://github.com/zensimilia/asw.git
+    ```
+
+- PIP
+
+    ```bash
+    pip install git+https://github.com/zensimilia/asw.git
+    ```
+
 Create class member with `host` and authorization`token` params. You can send GET or POST request
 to the service endpoints and download files:
 
