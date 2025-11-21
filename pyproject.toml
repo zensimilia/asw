@@ -26,7 +26,7 @@ only-packages = true
 [tool.ruff]
 line-length = 120
 lint.extend-select = ["ALL"]
-lint.ignore = ["ANN003", "TRY003"]
+lint.ignore = ["ANN003", "TRY003", "D205"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*.py" = ["INP", "D", "S", "SLF", "PLR", "TC", "ANN"]

@@ -117,7 +117,8 @@ class AISUP:
         endpoint: str | None = None,
         data: dict | None = None,
     ) -> str:
-        """Download file by guid and returns its full path.
+        """Download the file by guid to the temporary directory (if _path_ is not specified)
+        and returns its filename with full path.
 
         :param str guid: ID of the requested file
         :param str, optional path: Desired path for download to. Temp directory if `None`
@@ -157,7 +158,7 @@ class AISUP:
         return file_name.resolve().as_posix()
 
     def post(self, endpoint: str, data: dict | None = None, **kwargs) -> dict:
-        """Send POST request to the service and return response as parsed json.
+        """Send POST request to the service with optional data and return response as parsed json.
 
         :param str endpoint: Endpoint path
         :param dict, optional data: Data in dictionary
